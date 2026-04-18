@@ -9,7 +9,7 @@ readme_content = '''# QR.DEV Pro
 
 > A professional, client-side QR code generator with advanced customization options. No server required, no data collected — 100% privacy focused.
 
-![QR.DEV Pro Screenshot](<[img width="1345" height="631" alt="image" src="https://github.com/user-attachments/assets/6029de14-6a6e-4bb3-80e7-fd845ab3dad8](https://www.image2url.com/r2/default/images/1776500477020-51018967-7da3-4470-b5ec-1d8c08842786.png)" />
+![QR.DEV Pro Screenshot](<qr.png />
 )
 
 ## ✨ Features
