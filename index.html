@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR.DEV — Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-dot"></div>
+      qr.dev
+    </div>
+    <nav>
+      <button class="btn-pill btn-primary" onclick="downloadQR()">⬇ Download</button>
+      <button class="btn-pill btn-outline" onclick="copyText()">Copy Link</button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">✦ developer tool · open source</div>
+    <h1>Generate<br><span>Beautiful QR</span><br>Codes.</h1>
+    <p>A clean, fast QR generator built for devs who care about the craft. No ads, no bloat — just your code.</p>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-dot"></div>
+      <span class="stat-label">QR Generated</span>
+      <span class="stat-value" id="statCount">0</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-dot"></div>
+      <span class="stat-label">Last Size</span>
+      <span class="stat-value" id="statSize">—</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-dot"></div>
+      <span class="stat-label">Status</span>
+      <span class="stat-value" id="statStatus">idle</span>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <!-- LEFT: CONTROLS -->
+    <div class="panel">
+      <div class="panel-title">Configuration</div>
+
+      <div class="field">
+        <label>URL or Text</label>
+        <div class="input-wrap">
+          <span class="input-icon">⌘</span>
+          <input type="text" id="urlInput" placeholder="https://your-url.com or any text…" oninput="onInputChange()">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>QR Size</label>
+        <div class="size-options">
+          <button class="size-btn" data-size="128" onclick="setSize(128, this)">Small<br><small style="font-weight:400;color:var(--text-muted)">128px</small></button>
+          <button class="size-btn active" data-size="256" onclick="setSize(256, this)">Medium<br><small style="font-weight:400;color:var(--text-muted)">256px</small></button>
+          <button class="size-btn" data-size="512" onclick="setSize(512, this)">Large<br><small style="font-weight:400;color:var(--text-muted)">512px</small></button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Colors</label>
+        <div class="colors-row">
+          <div class="color-field">
+            <label>QR Color</label>
+            <div class="color-picker-wrap" onclick="document.getElementById('fgColor').click()">
+              <input type="color" id="fgColor" value="#60a5fa" oninput="onColorChange('fg', this.value)">
+              <span class="color-hex" id="fgHex">#60a5fa</span>
+            </div>
+          </div>
+          <div class="color-field">
+            <label>Background</label>
+            <div class="color-picker-wrap" onclick="document.getElementById('bgColor').click()">
+              <input type="color" id="bgColor" value="#0a0a0a" oninput="onColorChange('bg', this.value)">
+              <span class="color-hex" id="bgHex">#0a0a0a</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-download-main" onclick="downloadQR()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PNG
+        </button>
+        <button class="btn-copy" onclick="copyText()">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy URL to Clipboard
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: QR PREVIEW -->
+    <div class="qr-panel">
+      <div class="panel-title">Preview</div>
+
+      <div class="qr-stage">
+        <div class="qr-glow" id="qrGlow"></div>
+        <div class="qr-corner tl"></div>
+        <div class="qr-corner tr"></div>
+        <div class="qr-corner bl"></div>
+        <div class="qr-corner br"></div>
+
+        <div class="qr-placeholder" id="qrPlaceholder">
+          <div class="placeholder-grid" id="placeholderGrid"></div>
+          <p>Type to generate QR</p>
+        </div>
+
+        <canvas id="qrCanvas"></canvas>
+      </div>
+
+      <div style="font-size:0.78rem;font-family:var(--mono);color:var(--text-muted);text-align:center;line-height:1.6;">
+        Live preview · Updates as you type<br>
+        <span style="color:var(--blue-light)" id="previewLabel">—</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>qr.dev</span> — crafted with care</p>
+    <div class="footer-links">
+      <a href="#">Docs</a>
+      <a href="#">GitHub</a>
+      <a href="#">API</a>
+    </div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script src="script.js"></script>
+</body>
+</html>
