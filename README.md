@@ -9,7 +9,8 @@ readme_content = '''# QR.DEV Pro
 
 > A professional, client-side QR code generator with advanced customization options. No server required, no data collected — 100% privacy focused.
 
-![QR.DEV Pro Screenshot](<qr.png />
+![QR.DEV Pro Screenshot]
+https://github.com/hymndavinci/qr-gen/blob/main/qr.png
 )
 
 ## ✨ Features
