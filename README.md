@@ -1,5 +1,5 @@
 
-readme_content = '''# QR.DEV Pro
+# QR.DEV Pro
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2.0.0-blue)](https://github.com/hymndavinci/qr-gen)
@@ -9,9 +9,7 @@ readme_content = '''# QR.DEV Pro
 
 > A professional, client-side QR code generator with advanced customization options. No server required, no data collected — 100% privacy focused.
 
-![QR.DEV Pro Screenshot]
-https://github.com/hymndavinci/qr-gen/blob/main/qr.png
-)
+![QR.DEV Pro Screenshot](https://github.com/hymndavinci/qr-gen/blob/main/qr.png)
 
 ## ✨ Features
 
@@ -210,20 +208,3 @@ Distributed under MIT License. See `LICENSE` for details.
 ---
 
 <p align="center">Made with ❤️ for the developer community</p>
-'''
-
-with open('/mnt/agents/output/qr-dev-pro/README.md', 'w') as f:
-    f.write(readme_content)
-
-print("✅ README.md created!")
-print("\n📄 Content includes:")
-print("  • Badges (License, Version, Tech stack)")
-print("  • Feature highlights")
-print("  • Quick start guide")
-print("  • Project structure")
-print("  • Usage instructions")
-print("  • Technical specifications")
-print("  • Privacy & security info")
-print("  • Customization guide")
-print("  • Contributing guidelines")
-print("  • License & acknowledgments")
